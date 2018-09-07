@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures"
+)
+library(turingerror)
+```
+
+# turingerror
+
+## Overview
+
+Commonly used model accuracy metrics such as Mean Average Error (MAE) and Root Mean Squared Error (RMSE) can produce erroneous results for sparse datasets, i.e., where the amount of information in most records is low.
+
+For such datasets it makes more sense to measure prediction errors across records. The `turingerror` package includes functions that implement 
+
+
+## Installation
+
+Currently `turingerror` is available from github.
+
+If you have `devtools` then you can simply run
+
+```{r, eval = FALSE}
+devtools::install_github("hecopa/turingerror")
+```
+
+
+## Usage
