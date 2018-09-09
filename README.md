@@ -1,1 +1,49 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # turingerror
+
+## Overview
+
+Commonly used model accuracy metrics such as Mean Average Error (MAE)
+and Root Mean Squared Error (RMSE) can produce erroneous results for
+sparse datasets, i.e., where the amount of information in most items in
+the dataset is low.
+
+For such datasets it makes more sense to measure prediction errors by
+comparing predicted and observed values across items. The `turingerror`
+package includes functions that calculates model prediction errors in
+this way.
+
+## Installation
+
+Currently the `turingerror` package is available from github.
+
+If you have `devtools` then you can simply run
+
+``` r
+devtools::install_github("heliopais/turingerror")
+```
+
+## Usage
+
+For conversion data you need to supply:
+
+  - a `data.frame` containing the data
+  - the name of the column in the `data.frame` containing the number of
+    trials per item
+  - the name of the column in the `data.frame` containing the number of
+    successes per item
+  - the name of the columns in the `data.frame` (at least 1, but there
+    can be more) containing the predicted conversion per item. Each of
+    these columns corresponds to a different prediction model
+
+You can then call the corresponding Turing Error function with these
+arguments. For example:
+
+``` r
+conversion_turing_error(my_data_frame, 
+                        'my_trials_column', 
+                        'my_successes_column',
+                        'my_predictions_column')
+```
