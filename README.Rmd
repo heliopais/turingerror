@@ -4,6 +4,35 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# turingerror
+
+The goal of turingerror is to ...
+
+## Installation
+
+You can install turingerror from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("heliopais/turingerror")
+```
+
+## Example
+
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -29,7 +58,7 @@ Currently `turingerror` is available from github.
 If you have `devtools` then you can simply run
 
 ```{r, eval = FALSE}
-devtools::install_github("hecopa/turingerror")
+devtools::install_github("heliopais/turingerror")
 ```
 
 
