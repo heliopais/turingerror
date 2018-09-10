@@ -4,7 +4,8 @@
 \alias{combine_all_binomial}
 \title{Combine low observation items in binomial dataset}
 \usage{
-combine_all_binomial(d, trial_column, success_column, estimate_columns)
+combine_all_binomial(d, trial_column, success_column, estimate_columns,
+  use_groups = FALSE)
 }
 \arguments{
 \item{d}{data.frame}
@@ -14,6 +15,8 @@ combine_all_binomial(d, trial_column, success_column, estimate_columns)
 \item{success_column}{column name with number of successes}
 
 \item{estimate_columns}{column names with conversion estimates}
+
+\item{use_groups}{use 'groups' column to combine itemsg}
 }
 \value{
 combined data.frame

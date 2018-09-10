@@ -58,19 +58,19 @@ binomial_evaluator <- function(trials1, estimates1,
 
   correct_answer = 1
 
-  nobookings1 = dbinom(0, trials1, estimates1)
-  bookings1 = 1 - dbinom(0, trials1, estimates1)
+  nobookings1 = stats::dbinom(0, trials1, estimates1)
+  bookings1 = 1 - stats::dbinom(0, trials1, estimates1)
 
-  nobookings2 = dbinom(0, trials2, estimates2)
-  bookings2 = 1 - dbinom(0, trials2, estimates2)
+  nobookings2 = stats::dbinom(0, trials2, estimates2)
+  bookings2 = 1 - stats::dbinom(0, trials2, estimates2)
 
   nobookings1_and_bookings2 = nobookings1 * bookings2
   nobookings2_and_bookings1 = nobookings2 * bookings1
 
   guessed_answer = ifelse(nobookings2_and_bookings1 > nobookings1_and_bookings2, 1,
                    ifelse(nobookings2_and_bookings1 < nobookings1_and_bookings2, 2,
-                   # final case: tie - randomly guess
-                   ifelse(runif(length(trials1)) < 0.5, 1, 2)
+                   # final case: tie --> randomly guess
+                   ifelse(stats::runif(length(trials1)) < 0.5, 1, 2)
                    ))
 
   return ( sum(guessed_answer == correct_answer)/length(guessed_answer) )

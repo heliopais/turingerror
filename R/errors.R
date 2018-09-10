@@ -55,16 +55,21 @@ conversion_turing_error <- function(
 #' Probabilistic Turing Error for continuous data
 #'
 #' @param d data frame with data
-#' @param trial_column name of the column with number of trials
-#' @param success_column name of column with number of successes
-#' @param estimate_columns names of the columns that have conversion estimates
-#' @param min_observations minimum number of observations per item
-#' @param combine_low_volume_items combine items that have less observations than minimum threshold
+#' @param weight_column name of the column with weights per item
+#' @param obs_column name of column with observed (continuous) values
+#' @param estimate_columns names of the columns that have predicted values
+#' @param min_weight minimum weight per item
 #' @param min_sample_size minimum number of random samples (and tests) generated
 #'
 #' @return turing error
 #' @export
-continuous_turing_error <- function(d, weight_column, obs_column, estimate_columns, min_weight = NULL, sample_size = 1000){
+continuous_turing_error <- function(
+  d,
+  weight_column,
+  obs_column,
+  estimate_columns,
+  min_weight = NULL,
+  min_sample_size = 1000){
   if (! 'data.frame' %in% class(d)){
     stop('First argument must be data.frame')
   }
@@ -72,8 +77,8 @@ continuous_turing_error <- function(d, weight_column, obs_column, estimate_colum
     x = as.data.table(d)
   }
 
-  sample1 = d[sample(nrow(d), sample_size, replace=T)]
-  sample2 = d[sample(nrow(d), sample_size, replace=T)]
+  sample1 = d[sample(nrow(d), min_sample_size, replace=T)]
+  sample2 = d[sample(nrow(d), min_sample_size, replace=T)]
 
   r = NULL
   for (estimate in estimate_columns){

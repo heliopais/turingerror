@@ -1,19 +1,29 @@
+## quiets concerns of R CMD check re: the .'s that appear in pipelines
+## taken from https://github.com/STAT545-UBC/Discussion/issues/451
+if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", "groups"))
+
 #' Combine low observation items in binomial dataset
 #'
 #' @param d data.frame
 #' @param trial_column column name with number of trials
 #' @param success_column column name with number of successes
 #' @param estimate_columns column names with conversion estimates
+#' @param use_groups use 'groups' column to combine itemsg
 #'
 #' @return combined data.frame
 #' @export
 #'
 #' @import data.table
-combine_all_binomial <- function(d, trial_column, success_column, estimate_columns, use_groups = FALSE){
+combine_all_binomial <- function(
+  d,
+  trial_column,
+  success_column,
+  estimate_columns,
+  use_groups = FALSE){
 
 
   if(use_groups){
-    r_sum = d[, lapply(.SD, sum), .SDcols = c(trial_column, success_column), by = groups]
+    r_sum = d[, lapply(.SD, sum), .SDcols = c(trial_column, success_column), by = "groups"]
 
 
     weight_avg_part1 = function(w){ w * as.numeric(t(d[,trial_column,with=F]))}
@@ -27,7 +37,7 @@ combine_all_binomial <- function(d, trial_column, success_column, estimate_colum
 
 
   } else {
-    obs_weighted_mean = function(w){weighted.mean(w, as.numeric(t(d[,trial_column,with=F])))}
+    obs_weighted_mean = function(w){stats::weighted.mean(w, as.numeric(t(d[,trial_column,with=F])))}
     r_sum = d[, lapply(.SD, sum), .SDcols = c(trial_column, success_column)]
     r_avg = d[, lapply(.SD, obs_weighted_mean), .SDcols = estimate_columns]
   }
@@ -78,7 +88,13 @@ get_combined_observations_binomial <- function(
 
 
 
-get_combined_observations_continuous <- function(d, weight_column, obs_column, estimate_columns, min_weight){
+get_combined_observations_continuous <- function(
+  d,
+  weight_column,
+  obs_column,
+  estimate_columns,
+  min_weight){
+
   dlow = d[d[,weight_column] < min_weight,]
   dhigh = d[d[,weight_column] >= min_weight,]
 
@@ -99,7 +115,6 @@ get_combined_observations_continuous <- function(d, weight_column, obs_column, e
       # 'template' data.frame
 
       agg[,weight_column] = sum(complete_set[,weight_column])
-      agg[,success_column] = sum(complete_set[,success_column])
       for(curr_column in c(obs_column, estimate_columns)){
         agg[, curr_column] = sum(complete_set[,weight_column] * complete_set[,curr_column])/sum(complete_set[,weight_column])
       }

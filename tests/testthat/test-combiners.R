@@ -15,17 +15,6 @@ test_that('one group of items in binomial dataset is combined properly', {
 
 })
 
-test_that('items in binomial dataset are placed in groups correctly', {
-  load('fixtures-combiners.RData')
-
-  expected_groups = data.table(groups = c(0,1,1,2))
-  computed_groups = find_item_groups(d2, trial_column, min_observations)
-  expect_equal(computed_groups, expected_groups)
-
-  expected_groups = data.table(groups = c(2,2,3,3))
-  computed_groups = find_item_groups(d4, trial_column, min_observations)
-  expect_equal(computed_groups, expected_groups)
-})
 
 
 test_that('combination of low observation items in binomial dataset works correctly', {

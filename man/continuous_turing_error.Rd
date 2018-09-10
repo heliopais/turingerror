@@ -2,23 +2,21 @@
 % Please edit documentation in R/errors.R
 \name{continuous_turing_error}
 \alias{continuous_turing_error}
-\title{Turing prediction error for continuous data}
+\title{Probabilistic Turing Error for continuous data}
 \usage{
 continuous_turing_error(d, weight_column, obs_column, estimate_columns,
-  min_weight = NULL, sample_size = 1000)
+  min_weight = NULL, min_sample_size = 1000)
 }
 \arguments{
 \item{d}{data frame with data}
 
-\item{estimate_columns}{names of the columns that have conversion estimates}
+\item{weight_column}{name of the column with weights per item}
 
-\item{trial_column}{name of the column with number of trials}
+\item{obs_column}{name of column with observed (continuous) values}
 
-\item{success_column}{name of column with number of successes}
+\item{estimate_columns}{names of the columns that have predicted values}
 
-\item{min_observations}{minimum number of observations per item}
-
-\item{combine_low_volume_items}{combine items that have less observations than minimum threshold}
+\item{min_weight}{minimum weight per item}
 
 \item{min_sample_size}{minimum number of random samples (and tests) generated}
 }
@@ -26,5 +24,5 @@ continuous_turing_error(d, weight_column, obs_column, estimate_columns,
 turing error
 }
 \description{
-Turing prediction error for continuous data
+Probabilistic Turing Error for continuous data
 }
